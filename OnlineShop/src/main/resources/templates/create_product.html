@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Product Management System</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="#">Rathi Shoes Store</a>
+
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/adminhome}" href="/adminhime">HOME</a>
+                </li>
+      <!--            <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/shop}" href="#">SHOP</a>
+                </li>
+              <li class="nav-item active">
+                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}" href="#">LOGIN</a>
+                </li>
+       -->   
+                <li class="nav-item active">
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/login}" href="/login">LOGOUT</a>
+                </li>
+     <!--           <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/cart}" href="/cart">CART</a>
+                </li>
+         -->       <li class="nav-item active">
+                    <span class="nav-link" th:text="${cartCount}">0</span>      
+                </li>
+            </ul>
+
+        </div>
+</nav>
+<br>
+<br>
+	<div class = "container">
+		<div class = "row">
+			<div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<h1 class = "text-center"> Create New Product </h1>
+				<div class = "card-body">
+				
+					<form th:action="@{/admin/products}" th:object = "${product}" method="POST" enctype="multipart/form-data">
+						<div class ="form-group">
+							<label> Product Category </label>
+							 <div class="form-group">
+			                    <label for="category">Select Category</label>
+			                    <select class="form-control" th:field="*{category}" id="category" name="category">
+			                        <option th:each="category :${category}"
+			                                th:value="${category.id}"
+			                                th:text="${category.name}"
+			                        >
+			                    </select>
+			                </div>
+				<!--			
+							<input
+							type = "text"
+							name = "Category"
+							th:field = "*{category}"
+							class = "form-control"
+							placeholder="Enter Category" 
+							/>
+				-->			
+						</div>
+						
+						<div class ="form-group">
+							<label> Product Name </label>
+							<input
+							type = "text"
+							name = "name"
+							th:field = "*{name}"
+							class = "form-control"
+							placeholder="Enter Name " 
+							/>
+						</div>
+						
+						<div class ="form-group">
+							<label> Product Description </label>
+							<input
+							type = "text"
+							name = "description"
+							th:field = "*{description}"
+							class = "form-control"
+							placeholder="Enter Description" 
+							/>
+						</div>
+						
+						<div class ="form-group">
+							<label> Product Price </label>
+							<input
+							type = "text"
+							name = "price"
+							th:field = "*{price}"
+							class = "form-control"
+							placeholder="Enter Price" 
+							/>
+						</div>
+						
+						<div class="col-sm-5">
+			                <p>Product Image</p>
+			                <div class="custom-file">
+			                    <input type="file"  class="custom-file-input" name="productImage" accept="image/jpeg, image/png"  id="productImage"/>
+			                    <label class="custom-file-label" for="productImage">Choose file</label>
+			                </div>
+			                <div class="form-group">
+			                    <img src="#" id="imgPreview" height="100px" width="100px" th:src="@{${'/Photos/' + product.photo}}" style="margin-top: 20px" alt=" ">
+			                </div>
+			                <input type="hidden" name="imgName" th:value="${product.photo}">
+			            </div>
+						
+		<!--				
+						<div class ="form-group">
+							<label> Product Photo </label>
+							<input
+							type = "text"
+							name = "photo"
+							th:field = "*{photo}"
+							class = "form-control"
+							placeholder="Enter Photo" 
+							/>
+						</div>
+			-->			
+						<div class = "box-footer">
+							<button type="submit" class = "btn btn-primary">
+								Submit
+							</button>
+						</div>
+					</form>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script>
+    function readURL(input){
+        if(input.files && input.files[0]){
+            var reader = new FileReader();
+            reader.onload = function(e){
+                $('#imgPreview').attr('src', e.target.result).width(100).height(100);
+            }
+            reader.readAsDataURL(input.files[0])
+        }
+    }
+    $('#productImage').change(function(){
+        readURL(this);
+    });
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+</body>
+</html>

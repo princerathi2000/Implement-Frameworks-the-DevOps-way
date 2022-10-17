@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>User Management System</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="#">Rathi Shoes Store</a>
+
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/adminhome}" href="/adminhime">HOME</a>
+                </li>
+      <!--            <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/shop}" href="#">SHOP</a>
+                </li>
+              <li class="nav-item active">
+                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}" href="#">LOGIN</a>
+                </li>
+       -->   
+                <li class="nav-item active">
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/login}" href="/login">LOGOUT</a>
+                </li>
+     <!--           <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/cart}" href="/cart">CART</a>
+                </li>
+         -->       <li class="nav-item active">
+                    <span class="nav-link" th:text="${cartCount}">0</span>      
+                </li>
+            </ul>
+
+        </div>
+</nav>
+<br>
+<br>
+	<div class = "container">
+		<div class = "row">
+			<div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+				<h1 class = "text-center"> Update User </h1>
+				<div class = "card-body">
+					<form th:action="@{/admin/category/{id} (id=${category.id})}" th:object = "${category}" method="POST">
+		<!--				
+						<div class ="form-group">
+							<label>  Id </label>
+							<input
+							type = "text"
+							name = "id"
+							th:field = "*{id}"
+							class = "form-control"
+						
+							/>
+						</div>
+			-->			
+						<div class ="form-group">
+							<label>  Name </label>
+							<input
+							type = "text"
+							name = "name"
+							th:field = "*{name}"
+							class = "form-control"
+							placeholder="Enter User First Name" 
+							/>
+						</div>
+						
+						<div class = "box-footer">
+							<button type="submit" class = "btn btn-primary">
+								Submit
+							</button>
+						</div>
+					</form>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
